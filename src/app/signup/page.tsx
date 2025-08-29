@@ -2,7 +2,7 @@
 'use client' // This is a client component because it has interactivity
 
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase-client' // We use the client-side client here
+import { createClient } from '@/lib/supabase-client'
 import { useRouter } from 'next/navigation'
 
 export default function SignUpPage() {
@@ -21,7 +21,8 @@ export default function SignUpPage() {
 
     try {
       // 1. Sign up the user with Supabase Auth
-      const { data: authData, error: signUpError } = await supabase.auth.signUp({
+const supabase = createClient();
+const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
       })
